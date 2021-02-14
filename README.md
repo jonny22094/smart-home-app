@@ -11,8 +11,10 @@
 
 
 ## App screens
-![screen1](https://i.imgur.com/Beoge48.png)
-![screen1](https://i.imgur.com/FsJiasn.png)
-![screen1](https://i.imgur.com/4cyylSL.png)
-![screen1](https://i.imgur.com/TBuFMcY.png)
-![screen1](https://i.imgur.com/OlLX5d4.png)
+
+<img src="https://i.imgur.com/Beoge48.png" width="200"/>
+<img src="https://i.imgur.com/FsJiasn.png" width="200"/>
+<img src="https://i.imgur.com/4cyylSL.png" width="200"/>
+<img src="https://i.imgur.com/TBuFMcY.png" width="200"/>
+<img src="https://i.imgur.com/OlLX5d4.png" width="200"/>
+
