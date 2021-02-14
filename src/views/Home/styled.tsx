@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { BadgeStatusType } from '../../utils/useSocket';
+import { BadgeStatusType } from '../../utils/socket';
 
 export const Container = styled.View`
   width: 100%;

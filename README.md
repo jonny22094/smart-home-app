@@ -8,3 +8,11 @@
     - Styled-components
     - React-native-color-picker
     - Socket.io
+
+
+## App screens
+![screen1](https://i.imgur.com/Beoge48.png)
+![screen1](https://i.imgur.com/FsJiasn.png)
+![screen1](https://i.imgur.com/4cyylSL.png)
+![screen1](https://i.imgur.com/TBuFMcY.png)
+![screen1](https://i.imgur.com/OlLX5d4.png)
