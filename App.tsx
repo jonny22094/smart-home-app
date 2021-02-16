@@ -2,20 +2,31 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Home from './src/views/Home';
+import Token from './src/views/Token';
+import Loading from './src/views/Loading';
 import LedNavigator from './src/views/LedNavigator';
-import { useSocket } from './src/utils/socket';
+import { useSockets } from './src/utils/socket';
+import { useAuth, AuthStatus } from './src/utils/useAuth';
 
 const Drawer = createDrawerNavigator();
 
-export default function App() {
-  const sockets = useSocket();
+const Router = () => {
+  const { authStatus } = useAuth();
+  const { isLoading } = useSockets();
 
-  return (
+  const shouldRender = !isLoading && authStatus !== AuthStatus.Loading;
+
+  return shouldRender ? (
     <NavigationContainer>
-      <Drawer.Navigator initialRouteName="ColorPicker">
-        <Drawer.Screen name="Home">{() => <Home sockets={sockets} />}</Drawer.Screen>
+      <Drawer.Navigator initialRouteName={authStatus === AuthStatus.Authorized ? 'Home' : 'Settings'}>
+        <Drawer.Screen name="Home" component={Home} />
         <Drawer.Screen name="ColorPicker" component={LedNavigator} options={{ drawerLabel: 'Led strip' }} />
+        <Drawer.Screen name="Settings" component={Token} options={{ drawerLabel: 'Settings' }} />
       </Drawer.Navigator>
     </NavigationContainer>
+  ) : (
+    <Loading />
   );
-}
+};
+
+export default Router;

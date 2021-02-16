@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^10.0.0",
+    "@react-native-async-storage/async-storage": "^1.13.4",
     "@react-native-community/masked-view": "0.1.6",
     "@react-native-community/push-notification-ios": "^1.0.2",
     "@react-navigation/bottom-tabs": "^5.2.5",
@@ -37,6 +38,7 @@
     "@types/node": "^12.12.5",
     "@types/react": "^16.9.11",
     "@types/react-native": "^0.60.22",
+    "@types/socket.io-client": "^1.4.35",
     "@typescript-eslint/eslint-plugin": "^2.5.0",
     "babel-eslint": "^10.0.3",
     "babel-plugin-transform-inline-environment-variables": "^0.4.3",

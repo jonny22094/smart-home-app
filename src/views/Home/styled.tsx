@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { BadgeStatusType } from '../../utils/socket';
 
 export const Container = styled.View`
   width: 100%;
@@ -38,24 +37,11 @@ export const ConnectionStatusText = styled(StyledText)`
   text-transform: uppercase;
 `;
 
-export const getStatusColor = (status: BadgeStatusType) => {
-  switch (status) {
-    case 0:
-      return '#e8d093';
-    case 1:
-      return '#f16e6e';
-    case 2:
-      return '#6bd692';
-    default:
-      return '#FFFFFF';
-  }
-};
-
-export const StatusBadge = styled.View<{ status: BadgeStatusType }>`
+export const StatusBadge = styled.View<{ connected: boolean }>`
   margin: 0 6px;
   width: 7px;
   height: 7px;
   border-radius: 45px;
 
-  background: ${({ status }) => getStatusColor(status)};
+  background: ${({ connected }) => (connected ? '#6bd692' : '#f16e6e')};
 `;

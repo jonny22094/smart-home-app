@@ -10,7 +10,7 @@ const Tab = createBottomTabNavigator();
 const LedNavigator = () => {
   return (
     <Tab.Navigator
-      initialRouteName="ColorSequence"
+      initialRouteName="ColorPicker"
       tabBarOptions={{
         showLabel: false,
         style: {

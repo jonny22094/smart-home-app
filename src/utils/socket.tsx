@@ -1,68 +1,42 @@
-import { useEffect, useState } from 'react';
 import io from 'socket.io-client';
+import { useState } from 'react';
 import { YellowBox } from 'react-native';
+import { getStorageData } from './useAuth';
 
 YellowBox.ignoreWarnings([
   'Unrecognized WebSocket connection option(s) `agent`, `perMessageDeflate`, `pfx`, `key`, `passphrase`, `cert`, `ca`, `ciphers`, `rejectUnauthorized`. Did you mean to put these under `headers`?',
 ]);
 
-export const socket = io('http://46.101.178.144:8080');
+let socket = null;
 
-enum Status {
-  CONNECTED = 'connected',
-  DISCONNECTED = 'disconnected',
-  WARRING = 'warring',
-}
+export const setupSockets = async () => {
+  const [token, ip] = await getStorageData();
 
-export type BadgeStatusType = 0 | 1 | 2;
+  socket = io(ip, {
+    query: {
+      token,
+    },
+  });
+};
 
-export interface Socket {
-  connectionStatus: Status;
-  badgeStatus: number;
-  devicesList: number;
-}
+export const useSockets = () => {
+  const [isLoading, setIsLoading] = useState(true);
 
-export const useSocket = () => {
-  const [connectionStatus, setConnectionStatus] = useState(Status.DISCONNECTED);
-  const [badgeStatus, setBadgeStatus] = useState(1);
-  const [devicesList, setDevicesList] = useState(1);
-
-  const handleConnectionStatus = (status: Status, badge: BadgeStatusType) => {
-    setConnectionStatus(status);
-    setBadgeStatus(badge);
-  };
-
-  const handleReconnect = () => {
-    socket.connect();
-
-    if (!socket.connected) {
-      setTimeout(handleReconnect, 2500);
-    }
-  };
-
-  useEffect(() => {
-    socket.on('reconnect', () => handleConnectionStatus(Status.WARRING, 0));
-
-    socket.on('disconnect', () => {
-      handleConnectionStatus(Status.DISCONNECTED, 1);
-      handleReconnect();
-    });
-
-    socket.on('devices', data => {
-      setDevicesList(data.devices);
-    });
-
-    socket.on('connect', () => handleConnectionStatus(Status.CONNECTED, 2));
-
-    if (!socket.connected) {
-      handleReconnect();
-    }
-  }, []);
+  setupSockets().then(() => setIsLoading(false));
 
   return {
-    connectionStatus,
-    badgeStatus,
-    devicesList,
+    isLoading,
+  };
+};
+
+export const useSocketStatus = () => {
+  const [isConnected, setIsConnected] = useState(false);
+
+  socket.on('connect', () => setIsConnected(true));
+  socket.on('disconnect', () => setIsConnected(false));
+
+  return {
+    isConnected,
   };
 };
 
